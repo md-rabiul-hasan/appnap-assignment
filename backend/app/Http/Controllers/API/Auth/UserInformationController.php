@@ -14,7 +14,7 @@ class UserInformationController extends BaseController
 		
         $success = [
             "name" => Auth::user()->name, 
-            "token" => "" 
+            "email" => Auth::user()->email, 
         ];
    
         return $this->sendResponse('User Fetch successfully.', $success);
