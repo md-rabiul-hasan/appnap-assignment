@@ -6,6 +6,7 @@ use App\Http\Controllers\API\Auth\PasswordResetController;
 use App\Http\Controllers\API\Auth\RegistrationController;
 use App\Http\Controllers\API\Auth\UserInformationController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,8 @@ Route::group(['prefix' => 'v1'], function(){
 
     Route::group(['middleware' => 'auth:api'], function(){
         Route::apiResource('categories', CategoryController::class);
+        Route::apiResource('products', ProductController::class);
+        Route::post('products/update/{id}', [ProductController::class, 'productUpdate']);
     });
 
 
