@@ -6,7 +6,7 @@
     </section>
     <section class="login-content">
         <div class="logo">
-            <h1>Vue-Authentication</h1>
+            <h1>Appnap</h1>
         </div> 
 
         <router-view></router-view>

@@ -3,7 +3,7 @@
     <form class="login-form" @submit.prevent="handleLoginSubmit">
       <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
 
-       <Error  v-if="error" :error="error" />
+       <!-- <Error  v-if="error" :error="error" /> -->
 
       <div class="form-group">
         <label class="control-label">Email</label>
@@ -45,7 +45,6 @@
 <script>
 import axios from 'axios'
 import Vue from 'vue';
-import Error from '../common/Error.vue';
 export default {
     name: "LoginScreen",
     data() {
@@ -64,16 +63,26 @@ export default {
             };
             try {
                 const response = await axios.post("/auth/login", data);
-                this.$store.dispatch("loader", false);
-                Vue.$toast.open({
-                  message: response.data.message,
-                  type: "success",
-                  position: 'top'
-                });
+                this.$store.dispatch("loader", false); //loader off
+                if(response.data.success === true){ // success request                  
+                  Vue.$toast.open({
+                    message: response.data.message,
+                    type: "success",
+                    position: 'top'
+                  });
 
-                this.$store.dispatch("user", response.data.data);
-                localStorage.setItem("token", response.data.data.token);
-                this.$router.push("/");
+                  this.$store.dispatch("user", response.data.data);
+                  localStorage.setItem("token", response.data.data.token);
+                  this.$router.push("/");
+                }else{ // failed request
+                  Vue.$toast.open({
+                    message: response.data.message,
+                    type: "error",
+                    position: 'top'
+                  });
+                }
+
+                
             }
             catch (error) {
               this.$store.dispatch("loader", false);
@@ -81,8 +90,7 @@ export default {
                 console.log("error" + error.response.success);
             }
         }
-    },
-    components: { Error }
+    }
 };
 </script>
 

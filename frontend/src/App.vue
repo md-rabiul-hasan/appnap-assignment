@@ -16,12 +16,10 @@ export default {
     DashboardLayout
   },
   async created(){
-
     const token = localStorage.getItem("token");
-    if(token){      
-      this.$router.push("/");
-    }
-        
+    if(!token){          
+      this.$router.push("/login");
+    }        
   },
    computed: {
     authenticationRoute () {

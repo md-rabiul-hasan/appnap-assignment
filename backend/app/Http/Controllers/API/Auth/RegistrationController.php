@@ -55,8 +55,9 @@ class RegistrationController extends BaseController
         $token = $user->createToken($user->name)->accessToken;
 
         $success = [
-            "name" => $user->name, 
-            "token" => "Bearer ". $token 
+            "name"       => $user->name,
+            "token_type" => "Bearer",
+            "token"      => $token
         ];
    
         return $this->sendResponse('User register successfully.', $success);

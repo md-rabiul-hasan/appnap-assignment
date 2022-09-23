@@ -47,14 +47,14 @@ class LoginController extends BaseController
             $token = $user->createToken($user->name)->accessToken;
             
             $success = [
-                "name" => $user->name, 
-                "token" => "Bearer " . $token 
-            ];
-   
+                "name"       => $user->name,
+                "token_type" => "Bearer",
+                "token"      => $token
+            ];   
             return $this->sendResponse( 'User login successfully.', $success);
         } 
         else{ 
-            return $this->sendError('Unauthorised.', ['error'=>'email or password was incorrect'], 403);
+            return $this->sendError('email or password was incorrect.', ['error'=>'email or password was incorrect'], 200);
         } 
     }
 }

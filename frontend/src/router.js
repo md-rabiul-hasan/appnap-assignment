@@ -6,6 +6,11 @@ import ForgetPassword from './components/auth/ForgetPassword.vue'
 import ResetPassword from './components/auth/ResetPassword.vue'
 import Home from './components/Dashboard/Home.vue'
 
+// category 
+import CategoryList from './components/category/CategoryList.vue';
+import AddCategory from './components/category/AddCategory.vue';
+import EditCategory from './components/category/EditCategory.vue';
+
 Vue.use(VueRouter)
 
 
@@ -15,6 +20,13 @@ const routes = [
     { path: '/forget-password', component: ForgetPassword, name:'forget-password' },
     { path: '/reset-password/:token', component: ResetPassword, name: 'reset-password' },
     { path: '/', component: Home, name: 'home' },
+
+    // category route
+    { path: '/categories', component: CategoryList, name: 'categories' },
+    { path: '/categories/create', component: AddCategory, name: 'category_add' },
+    { path: '/categories/:id/edit', component: EditCategory, name: 'category_edit' },
+
+
 ];
   
 
