@@ -12,6 +12,7 @@ use App\Http\Requests\Product\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use File;
 
 class ProductController extends BaseController
 {
@@ -95,14 +96,22 @@ class ProductController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function productUpdate(UpdateProductRequest $request, $id){
-        
+         
         $product = Product::find($id);
-
-        if($request->has('image')){
+		
+        if($request->has('image') && !empty($request->file('image')) ){
             $uploadFolder        = 'product-images';
             $image               = $request->file('image');
             $image_uploaded_path = $image->store($uploadFolder, 'public');
-            $image_path          = "public/storage/{$uploadFolder}/{$image_uploaded_path}";
+            $image_path          = "public/storage/{$image_uploaded_path}";
+			
+			// remove old image from directory
+			$old_image = $product->image;
+			if(File::exists($old_image)){
+                unlink($old_image);
+            }
+			
+			
         }else{
             $image_path = $product->image; // old image path cannot be changed
         }

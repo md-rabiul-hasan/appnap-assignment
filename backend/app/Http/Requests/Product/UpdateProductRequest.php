@@ -29,7 +29,6 @@ class UpdateProductRequest extends FormRequest
             'name'        => 'required',
             'price'       => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
-            'image'      => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     } 
 
@@ -46,8 +45,6 @@ class UpdateProductRequest extends FormRequest
             'price.numeric'        => 'Price must be numeric format',
             'category_id.required' => 'Please select product category',
             'category_id.exists'   => 'Category not exists',
-            'image.required'       => 'Please enter product image',
-            'image.mimes'          => 'Invalid image format'
         ];
     }
 

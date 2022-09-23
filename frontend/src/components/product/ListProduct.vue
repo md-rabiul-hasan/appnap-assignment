@@ -29,7 +29,7 @@
                   <td>{{ product.user }}</td> 
                   <td>{{ product.created_at }}</td> 
                   <td>
-                      <router-link class="btn btn-sm btn-primary"><i class="fa fa-pencil-square"></i></router-link>  
+                    <router-link :to="{ name: 'edit_product', params: { id: product.id }}" class="btn btn-sm btn-primary"><i class="fa fa-pencil-square"></i></router-link>   
                       ||
                       <button class="btn btn-sm btn-danger" @click="removeProduct(product.id)"><i class="fa fa-trash"></i></button>  
                   </td>                
