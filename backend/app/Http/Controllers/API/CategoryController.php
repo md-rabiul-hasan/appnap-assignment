@@ -92,7 +92,7 @@ class CategoryController extends BaseController
     {
         try{
             $category->delete();
-            return $this->sendResponse( 'Category deleted successfully.', [], 204);
+            return $this->sendResponse( 'Category deleted successfully.', [], 200);
         }catch(Exception $e){
             return $this->sendError($e->getMessage(), [], 500);  
         }

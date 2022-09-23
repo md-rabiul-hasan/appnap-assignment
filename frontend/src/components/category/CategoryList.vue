@@ -10,13 +10,19 @@
                   <th>#</th>
                   <th>Name</th>
                   <th>Created</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="category in categories" :key="category.id">
                   <td>{{ category.id }}</td>
                   <td>{{ category.name }}</td>                 
-                  <td>{{ category.created_at }}</td>                 
+                  <td>{{ category.created_at }}</td> 
+                  <td>
+                      <router-link :to="{ name: 'category_edit', params: { id: category.id }}" class="btn btn-sm btn-primary"><i class="fa fa-pencil-square"></i></router-link>  
+                      ||
+                      <button class="btn btn-sm btn-danger" @click="removeCategory(category.id)"><i class="fa fa-trash"></i></button>  
+                  </td>                
                 </tr>               
               </tbody>
             </table>
@@ -40,12 +46,7 @@ export default {
           this.$store.dispatch("loader", true);    
           const response = await axios.get("/categories");
           this.$store.dispatch("loader", false); //loader off
-          if(response.data.success === true){ // success request                  
-            Vue.$toast.open({
-              message: response.data.message,
-              type: "success",
-              position: 'top'
-            });
+          if(response.data.success === true){ // success request                 
             this.categories = response.data.data
           }else{ // failed request
             Vue.$toast.open({
@@ -54,7 +55,29 @@ export default {
               position: 'top'
             });
           }
+        },
 
+        async removeCategory(id){
+          if(confirm("Are you sure? You want to delete it?")){
+            this.$store.dispatch("loader", true);    
+            const response = await axios.delete(`/categories/${id}`);
+            this.$store.dispatch("loader", false); //loader off
+            if(response.data.success === true){ // success request                  
+              Vue.$toast.open({
+                message: response.data.message,
+                type: "success",
+                position: 'top'
+              });
+              this.getCategories();
+            }else{ // failed request
+              Vue.$toast.open({
+                message: response.data.message,
+                type: "error",
+                position: 'top'
+              });
+            }    
+
+          }
         }
     },
     mounted() {
