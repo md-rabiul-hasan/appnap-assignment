@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Requests\Auth\ForgetPasswordRequest;
 use App\Jobs\PasswordResetMailSendJob;
 use App\Mail\PasswordResetMail;
 use Illuminate\Http\Request;
@@ -19,14 +20,8 @@ class ForgetPasswordController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function forgetPassword(Request $request){
-        $validator = Validator::make($request->all(), [
-            'email'      => 'required|email',
-        ]);
-   
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        }
+    public function forgetPassword(ForgetPasswordRequest $request){
+    
 
         $email = $request->input('email');
 

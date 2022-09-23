@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -15,17 +16,9 @@ class LoginController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email'      => 'required|email',
-            'password'   => 'required'
-        ]);
-   
-        if($validator->fails()){
-            return $this->sendError( $validator->errors()->first(), $validator->errors());       
-        }
-
+       
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user  = Auth::user();
             $token = $user->createToken($user->name)->accessToken;

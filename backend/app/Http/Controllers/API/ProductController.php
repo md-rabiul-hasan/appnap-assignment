@@ -7,6 +7,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\API\BaseController;
+use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +36,7 @@ class ProductController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
         $uploadFolder = 'product-images';
         $image = $request->file('image');
@@ -92,15 +94,15 @@ class ProductController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function productUpdate(Request $request, $id){
+    public function productUpdate(UpdateProductRequest $request, $id){
+        
         $product = Product::find($id);
 
- 
         if($request->has('image')){
-            $uploadFolder = 'product-images';
-            $image = $request->file('image');
+            $uploadFolder        = 'product-images';
+            $image               = $request->file('image');
             $image_uploaded_path = $image->store($uploadFolder, 'public');
-            $image_path = "public/storage/{$uploadFolder}/{$image_uploaded_path}";
+            $image_path          = "public/storage/{$uploadFolder}/{$image_uploaded_path}";
         }else{
             $image_path = $product->image; // old image path cannot be changed
         }

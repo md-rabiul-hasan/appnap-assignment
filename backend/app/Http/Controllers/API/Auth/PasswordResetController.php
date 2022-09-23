@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Requests\Auth\ResetPasswordPasswordRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
@@ -12,15 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 class PasswordResetController extends BaseController
 {
-    public function passwordReset($token, Request $request){
-        $validator = Validator::make($request->all(), [
-            'password'         => 'required',
-            'confirm_password' => 'required|same:password',
-        ]);
-   
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        }
+    public function passwordReset($token, ResetPasswordPasswordRequest $request){       
 
         $reset_token = DB::table('password_resets')->where('token', $token)->first();
         if($reset_token){

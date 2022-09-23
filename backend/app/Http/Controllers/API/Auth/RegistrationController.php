@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\API\BaseController;
+use App\Http\Requests\Auth\RegistrationRequest;
 
 class RegistrationController extends BaseController
 {
@@ -16,19 +17,8 @@ class RegistrationController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function registration(Request $request){
+    public function registration(RegistrationRequest $request){
 		
-        $validator = Validator::make($request->all(), [
-            'name'       => 'required',
-            'email'      => 'required|email|unique:users,email',
-            'password'   => 'required',
-            'confirm_password' => 'required|same:password',
-        ]);
-   
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        }
-
         $user = User::create([
             'name'     => $request->input('name'),
             'email'    => $request->input('email'),

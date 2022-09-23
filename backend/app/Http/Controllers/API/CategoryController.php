@@ -8,6 +8,8 @@ use App\Models\Category;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController;
+use App\Http\Requests\Category\CreateCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 
 class CategoryController extends BaseController
 {
@@ -33,7 +35,7 @@ class CategoryController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
         try{
             Category::create([
@@ -68,7 +70,7 @@ class CategoryController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         try{
             $category->update([
