@@ -48,7 +48,7 @@ class ProductController extends BaseController
                 "user_id"     => Auth::user()->id,
                 "name"        => $request->input('name'),
                 "price"       => $request->input('price'),
-                "image"       => "public/storage/{$uploadFolder}/{$image_uploaded_path}"
+                "image"       => "public/storage/{$image_uploaded_path}"
             ]);
             return $this->sendResponse( 'Product created successfully.', [], 201);
         }catch(Exception $e){

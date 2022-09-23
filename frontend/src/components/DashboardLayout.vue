@@ -49,25 +49,22 @@
       </div>
       <ul class="app-menu">
         <li>
-          <a class="app-menu__item" href="dashboard.html"
-            ><i class="app-menu__icon fa fa-dashboard"></i
-            ><span class="app-menu__label">Dashboard</span></a
-          >
+          <router-link class="app-menu__item" to="/">
+            <i class="app-menu__icon fa fa-dashboard"></i>
+          <span class="app-menu__label">Dashboard</span>
+          </router-link>
         </li>
         <li>
           <router-link class="app-menu__item" to="categories">
             <i class="app-menu__icon fa fa-snowflake-o"></i>
             <span class="app-menu__label">Category</span>
           </router-link>
-          <a class="app-menu__item" href="dashboard.html"
-            ></a
-          >
         </li>
         <li>
-          <a class="app-menu__item" href="dashboard.html"
-            ><i class="app-menu__icon fa fa-gift"></i
-            ><span class="app-menu__label">Product</span></a
-          >
+          <router-link class="app-menu__item" to="products">
+            <i class="app-menu__icon fa fa-gift"></i
+            ><span class="app-menu__label">Product</span>
+          </router-link>
         </li>
       </ul>
     </aside>

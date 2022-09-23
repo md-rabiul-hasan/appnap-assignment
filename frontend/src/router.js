@@ -11,6 +11,12 @@ import CategoryList from './components/category/CategoryList.vue';
 import AddCategory from './components/category/AddCategory.vue';
 import EditCategory from './components/category/EditCategory.vue';
 
+// product
+import ListProduct from "./components/product/ListProduct.vue";
+import AddProduct from "./components/product/AddProduct.vue";
+import EditProduct from "./components/product/EditProduct.vue";
+
+
 Vue.use(VueRouter)
 
 
@@ -25,6 +31,11 @@ const routes = [
     { path: '/categories', component: CategoryList, name: 'categories' },
     { path: '/categories/create', component: AddCategory, name: 'category_add' },
     { path: '/categories/:id/edit', component: EditCategory, name: 'category_edit' },
+
+    // product route
+    { path: '/products', component: ListProduct, name: 'products' },
+    { path: '/add-products', component: AddProduct, name: 'add_product' },
+    { path: '/product/:id/edit', component: EditProduct, name: 'edit_product' },
 
 
 ];
