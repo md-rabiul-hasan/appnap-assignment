@@ -17,8 +17,30 @@ class ForgetPasswordController extends BaseController
 {
     /**
      * Forget Password
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Post (
+     *     path="/auth/forget-password",
+     *     tags={"Authentication"},
+     *     summary="Reset token send email",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 example={
+     *                     "email": "arif@gmail.com",
+     *                }
+     *             )
+     *         )
+     *      ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Password reset mail sent.",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              example={{"success":true,"status_code":200,"message":"Password reset mail sent.","data":{"reset_token":"XamaAWLSwKyInDl8gANe"}}}
+     *          )
+     *     ),
+     * 
+     * )
      */
     public function forgetPassword(ForgetPasswordRequest $request){
     
