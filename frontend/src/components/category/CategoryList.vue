@@ -4,28 +4,31 @@
         <div class="tile">
            <h3 class="tile-title">Category</h3>
            <router-link to="/categories/create" class="add_button btn btn-primary" type="button"><i class="fa fa-plus-circle"></i>  Add New</router-link>
-           <table class="table table-striped">
-              <thead>
-                 <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Created</th>
-                    <th>Action</th>
-                 </tr>
-              </thead>
-              <tbody>
-                 <tr v-for="category in categories" :key="category.id">
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.name }}</td>
-                    <td>{{ category.created_at }}</td>
-                    <td>
-                       <router-link :to="{ name: 'category_edit', params: { id: category.id }}" class="btn btn-sm btn-primary"><i class="fa fa-pencil-square"></i></router-link>
-                       ||
-                       <button class="btn btn-sm btn-danger" @click="removeCategory(category.id)"><i class="fa fa-trash"></i></button>  
-                    </td>
-                 </tr>
-              </tbody>
-           </table>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Created</th>
+                      <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="category in categories" :key="category.id">
+                      <td>{{ category.id }}</td>
+                      <td>{{ category.name }}</td>
+                      <td>{{ category.created_at }}</td>
+                      <td>
+                        <router-link :to="{ name: 'category_edit', params: { id: category.id }}" class="btn btn-sm btn-primary"><i class="fa fa-pencil-square"></i></router-link>
+                        ||
+                        <button class="btn btn-sm btn-danger" @click="removeCategory(category.id)"><i class="fa fa-trash"></i></button>  
+                      </td>
+                  </tr>
+                </tbody>
+            </table>
+            </div>
+           
         </div>
      </div>
   </main>
@@ -91,5 +94,9 @@ export default {
 </script>
 
 <style scoped>
-
+    .add_button {
+        position: absolute;
+        top: 3%!important;
+        right: 5%!important;
+    }
 </style>

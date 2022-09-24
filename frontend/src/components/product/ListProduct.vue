@@ -1,10 +1,11 @@
 <template>
   <main class="app-content">
-     <div class="col-md-12">
+     <div class="col-md-10 offset-md-1">
         <div class="tile">
            <h3 class="tile-title">Product</h3>
            <router-link :to="{ name: 'add_product' }" class="add_button btn btn-primary" type="button"><i class="fa fa-plus-circle"></i>  Add New</router-link>
-           <table class="table table-striped table-responsive">
+           <div class="table-responsive ">
+            <table class="table table-striped ">
               <thead>
                  <tr>
                     <th>#</th>
@@ -36,6 +37,8 @@
                  </tr>
               </tbody>
            </table>
+           </div>
+          
         </div>
      </div>
   </main>
@@ -105,8 +108,8 @@ export default {
 <style>
     .add_button {
         position: absolute;
-        top: 5%;
-        right: 5%;
+        top: 3%!important;
+        right: 5%!important;
     }
     .box_image{
       height: 50px!important;
