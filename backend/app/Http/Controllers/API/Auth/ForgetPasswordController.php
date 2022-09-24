@@ -75,7 +75,7 @@ class ForgetPasswordController extends BaseController
         $details = [
             'email' => $email,
             'subject' => 'Password Reset',
-            'url' => "http://localhost:3000/reset-password/$token"
+            'url' => "https://sprightly-cucurucho-a3d1f7.netlify.app/reset-password/$token"
         ];
         Mail::to($details['email'])->send(new PasswordResetMail($details));
         // dispatch(new PasswordResetMailSendJob($details));
