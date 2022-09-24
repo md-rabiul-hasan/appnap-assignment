@@ -1,37 +1,41 @@
 <template>
-    <main class="app-content">
-        <div class="col-md-6 offset-md-3">
-          <div class="tile">
-            <h3 class="tile-title">Product Update</h3>
-            <div class="tile-body">
+  <main class="app-content">
+     <div class="col-md-6 offset-md-3">
+        <div class="tile">
+           <h3 class="tile-title">Product Update</h3>
+           <div class="tile-body">
               <form @submit.prevent="handleProductUpdate" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label class="control-label">Name</label>
-                  <input class="form-control" v-model="formData.name" type="text" placeholder="Name">
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Price</label>
-                  <input class="form-control" v-model="formData.price" type="number" placeholder="Price">
-                </div>
-                <div class="form-group">
+                 <div class="form-group">
+                    <label class="control-label">Name</label>
+                    <input class="form-control" v-model="formData.name" type="text" placeholder="Name">
+                 </div>
+                 <div class="form-group">
+                    <label class="control-label">Details</label>
+                    <input class="form-control" v-model="formData.details" type="text" placeholder="Details">
+                 </div>
+                 <div class="form-group">
+                    <label class="control-label">Price</label>
+                    <input class="form-control" v-model="formData.price" type="number" placeholder="Price">
+                 </div>
+                 <div class="form-group">
                     <label for="exampleSelect1">Select Category</label>
                     <select class="form-control" id="exampleSelect1" @change="handleCategoryChange">
-                        <option value="">Select Product</option>
-                        <option v-for="item in categories" v-bind:key="item.id" :value="item.id" :selected="item.id == formData.category_id">{{item.name}}</option>                     
+                       <option value="">Select Product</option>
+                       <option v-for="item in categories" v-bind:key="item.id" :value="item.id" :selected="item.id == formData.category_id">{{item.name}}</option>
                     </select>
-                  </div>
-                <div class="form-group">
-                  <label class="control-label">Image</label>
-                  <input class="form-control" type="file" accept="image/*"  @change="handleFileObject()" id="customFile" ref="file">               
-                </div> 
-                <div class="tile-footer">
-                  <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save</button>                
-                </div>
+                 </div>
+                 <div class="form-group">
+                    <label class="control-label">Image</label>
+                    <input class="form-control" type="file" accept="image/*"  @change="handleFileObject()" id="customFile" ref="file">               
+                 </div>
+                 <div class="tile-footer">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save</button>                
+                 </div>
               </form>
-            </div>            
-          </div>
+           </div>
         </div>
-    </main>
+     </div>
+  </main>
 </template>
 
 <script>
@@ -43,6 +47,7 @@ export default {
         return {
             formData:{
                 name: '',
+                details: '',
                 price: '',
                 category_id: '',
                 image: ''
@@ -56,27 +61,32 @@ export default {
       this.getProductInfo();
     },
     methods: {
+        // fetch category
         async getCategories(){
             const response = await axios.get('categories');
             this.categories = response.data.data
         },
 
+        // fetch single product info
         async getProductInfo(){
             const response = await axios.get(`/products/${this.$route.params.id}`);
             this.formData.name = response.data.data.name;
+            this.formData.details = response.data.data.details;
             this.formData.price = response.data.data.price;
             this.formData.category_id = response.data.data.category_id;
         },
 
+        // category changes event
         handleCategoryChange(event){
             this.formData.category_id = event.target.value
         },
 
-       async  handleProductUpdate() {
-
+        // product update
+        async  handleProductUpdate() {
             let formData = new FormData()
             formData.append('image', this.image)
             formData.append('name', this.formData.name)
+            formData.append('details', this.formData.details)
             formData.append('category_id', this.formData.category_id)
             formData.append('price', this.formData.price)
 
@@ -98,6 +108,7 @@ export default {
                 });
             } 
       },
+      // file select handler
       handleFileObject() {
         this.image = this.$refs.file.files[0]
       }

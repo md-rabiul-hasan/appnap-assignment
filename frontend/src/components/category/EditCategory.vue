@@ -1,27 +1,25 @@
 <template>
-    <main class="app-content">
-        <div class="col-md-6 offset-md-3">
-          <div class="tile">
-            <h3 class="tile-title">Category Update</h3>
-            <div class="tile-body">
+  <main class="app-content">
+     <div class="col-md-6 offset-md-3">
+        <div class="tile">
+           <h3 class="tile-title">Category Update</h3>
+           <div class="tile-body">
               <form @submit.prevent="handleCategoryUpdate">
-                <div class="form-group">
-                  <label class="control-label">Name</label>
-                  <input class="form-control" v-model="name" type="text" placeholder="Category Name">
-                </div>
-                <div class="tile-footer">
-                  <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update</button>                
-                </div>
+                 <div class="form-group">
+                    <label class="control-label">Name</label>
+                    <input class="form-control" v-model="name" type="text" placeholder="Category Name">
+                 </div>
+                 <div class="tile-footer">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update</button>                
+                 </div>
               </form>
-            </div>
-            
-          </div>
+           </div>
         </div>
-    </main>
+     </div>
+  </main>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import axios from 'axios'
 import Vue from 'vue';
 export default {
@@ -31,15 +29,12 @@ export default {
             name: "",
         };
     },
-    computed:{
-        ...mapGetters(['user'])
-    },
     mounted() {
         
       this.getCategoryDetails();
     },
     methods: {
-
+        // fetch category details
         async getCategoryDetails(){    
           this.$store.dispatch("loader", true);    
           const response = await axios.get(`/categories/${this.$route.params.id}`);
@@ -55,9 +50,8 @@ export default {
           }
         },
 
-
+        // update category
         async handleCategoryUpdate() {
-
             this.$store.dispatch("loader", true);
             const data = {
                 name: this.name,

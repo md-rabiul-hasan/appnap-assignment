@@ -1,34 +1,34 @@
 <template>
-    <main class="app-content">
-        <div class="col-md-6 offset-md-3">
-          <div class="tile">
-            <h3 class="tile-title">Category List</h3>
-            <router-link to="/categories/create" class="add_button btn btn-primary" type="button"><i class="fa fa-plus-circle"></i>  Add New</router-link>
-            <table class="table table-striped">
+  <main class="app-content">
+     <div class="col-md-6 offset-md-3">
+        <div class="tile">
+           <h3 class="tile-title">Category List</h3>
+           <router-link to="/categories/create" class="add_button btn btn-primary" type="button"><i class="fa fa-plus-circle"></i>  Add New</router-link>
+           <table class="table table-striped">
               <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Created</th>
-                  <th>Action</th>
-                </tr>
+                 <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Created</th>
+                    <th>Action</th>
+                 </tr>
               </thead>
               <tbody>
-                <tr v-for="category in categories" :key="category.id">
-                  <td>{{ category.id }}</td>
-                  <td>{{ category.name }}</td>                 
-                  <td>{{ category.created_at }}</td> 
-                  <td>
-                      <router-link :to="{ name: 'category_edit', params: { id: category.id }}" class="btn btn-sm btn-primary"><i class="fa fa-pencil-square"></i></router-link>  
-                      ||
-                      <button class="btn btn-sm btn-danger" @click="removeCategory(category.id)"><i class="fa fa-trash"></i></button>  
-                  </td>                
-                </tr>               
+                 <tr v-for="category in categories" :key="category.id">
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.created_at }}</td>
+                    <td>
+                       <router-link :to="{ name: 'category_edit', params: { id: category.id }}" class="btn btn-sm btn-primary"><i class="fa fa-pencil-square"></i></router-link>
+                       ||
+                       <button class="btn btn-sm btn-danger" @click="removeCategory(category.id)"><i class="fa fa-trash"></i></button>  
+                    </td>
+                 </tr>
               </tbody>
-            </table>
-          </div>
+           </table>
         </div>
-    </main>
+     </div>
+  </main>
 </template>
 
 <script>
@@ -42,6 +42,7 @@ export default {
       }
     },
     methods:{
+        // fetch all category
         async getCategories(){       
           this.$store.dispatch("loader", true);    
           const response = await axios.get("/categories");
@@ -57,6 +58,7 @@ export default {
           }
         },
 
+        // delete category
         async removeCategory(id){
           if(confirm("Are you sure? You want to delete it?")){
             this.$store.dispatch("loader", true);    
