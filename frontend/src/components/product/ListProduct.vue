@@ -4,7 +4,7 @@
         <div class="tile">
            <h3 class="tile-title">Product</h3>
            <router-link :to="{ name: 'add_product' }" class="add_button btn btn-primary" type="button"><i class="fa fa-plus-circle"></i>  Add New</router-link>
-           <table class="table table-striped">
+           <table class="table table-striped table-responsive">
               <thead>
                  <tr>
                     <th>#</th>
