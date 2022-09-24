@@ -4,8 +4,8 @@
         <div class="tile">
            <h3 class="tile-title">Category</h3>
            <router-link to="/categories/create" class="add_button btn btn-primary" type="button"><i class="fa fa-plus-circle"></i>  Add New</router-link>
-            <div class="table-responsive">
-              <table class="table table-striped">
+            <div class="table-responsive-all">
+              <table class="table table-sm table-striped">
                 <thead>
                   <tr>
                       <th>#</th>
@@ -98,5 +98,8 @@ export default {
         position: absolute;
         top: 3%!important;
         right: 5%!important;
+    }
+    .table-responsive-all{
+      overflow-x: scroll;
     }
 </style>

@@ -4,7 +4,7 @@
         <div class="tile">
            <h3 class="tile-title">Product</h3>
            <router-link :to="{ name: 'add_product' }" class="add_button btn btn-primary" type="button"><i class="fa fa-plus-circle"></i>  Add New</router-link>
-           <div class="table-responsive ">
+           <div class="table-responsive-all">
             <table class="table table-striped ">
               <thead>
                  <tr>
@@ -116,5 +116,8 @@ export default {
       width: 50px!important;
       border-radius: 50%;
       border: 2px solid #ccc;
+    }
+    .table-responsive-all{
+      overflow-x: scroll!important;;
     }
 </style>

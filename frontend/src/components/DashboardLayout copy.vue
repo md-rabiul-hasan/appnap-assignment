@@ -4,49 +4,13 @@
      <!-- Navbar-->
      <header class="app-header">
          <router-link to="/admin"  class="app-header__logo" >Appnap</router-link>
-        <!-- Sidebar toggle button-->
-        <a
-           class="app-sidebar__toggle sidebar_menu desktop-bar"
+        <!-- Sidebar toggle button--><a
+           class="app-sidebar__toggle sidebar_menu"
            href="#"
+           @click="sidebarMenuToggle"
            data-toggle="sidebar"
            aria-label="Hide Sidebar"
            ></a>
-
-           <ul class="app-nav mobile-menu">
-           <!-- User Menu-->
-           <li class="dropdown">
-              <a
-                 class="app-nav__item sidebar"
-                 href="#"
-                 
-                 data-toggle="dropdown"
-                 aria-label="Open Profile Menu"
-                 ><i class="fa fa-bars  fa-lg"></i
-                 ></a>
-              <ul class="dropdown-menu settings-menu dropdown-menu-right">
-               <li>
-                  <router-link class="dropdown-item" to="/admin">
-                     <i class="app-menu__icon fa fa-dashboard"></i>
-                     <span class="app-menu__label">Dashboard</span>
-                  </router-link>
-               </li>
-               <li>
-                  <router-link class="dropdown-item" to="categories">
-                     <i class="app-menu__icon fa fa-snowflake-o"></i>
-                     <span class="app-menu__label">Category</span>
-                  </router-link>
-               </li>
-               <li>
-                  <router-link class="dropdown-item" to="products">
-                     <i class="app-menu__icon fa fa-gift"></i
-                        ><span class="app-menu__label">Product</span>
-                  </router-link>
-               </li>               
-              </ul>
-           </li>
-        </ul>
-
-
         <!-- Navbar Right Menu-->
         <ul class="app-nav">
            <!-- User Menu-->
@@ -123,6 +87,16 @@ export default {
             });
             this.$store.dispatch("user", null);
             this.$router.push("/");
+        },
+        sidebarMenuToggle(){
+         if(this.sidebar === false && window.innerWidth > 710){
+            this.sidebar = !this.sidebar
+         }  
+         
+         if( window.innerWidth < 710) {
+            this.sidebar = !this.sidebar
+         }
+               
         }
     },
     computed: {
@@ -132,19 +106,5 @@ export default {
 };
 </script>
 
-<style>
-   .mobile-menu{
-      position: absolute;
-      left: 5%;
-   }
-   @media (max-width: 710px) {
-      .desktop-bar{
-         display: none!important;
-      }
-   }
-   @media (min-width: 710px) {
-      .mobile-menu{
-         display: none!important;
-      }
-   }
+<style scoped>
 </style>
