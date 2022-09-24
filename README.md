@@ -35,6 +35,11 @@ This assignment i compleated those topics
 | Vuex for state management |
 
 
+## Frontend Project
+[appnab-assignment.com](https://sprightly-cucurucho-a3d1f7.netlify.app)
+
+
+
 
 ## API Documentaion
 
