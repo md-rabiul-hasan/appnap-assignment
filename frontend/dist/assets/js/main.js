@@ -5,8 +5,13 @@
 
 	// Toggle Sidebar
 	$('[data-toggle="sidebar"]').click(function(event) {
+		alert("ok")
 		event.preventDefault();
 		$('.app').toggleClass('sidenav-toggled');
+	});
+
+	$('[data-toggle="sidebar"]').on('click', function (e) {
+		alert("ok")
 	});
 
 	// Activate sidebar treeview toggle

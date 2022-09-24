@@ -37,7 +37,7 @@ I compleated product management system. This project can manage product  | categ
 
 ## Frontend Url
 
-[appnet-assignment.com](https://sprightly-cucurucho-a3d1f7.netlify.app/)
+[appnet-assignment.com](https://serene-sunburst-1f69ed.netlify.app)
 
 ## API Documentaion
 
