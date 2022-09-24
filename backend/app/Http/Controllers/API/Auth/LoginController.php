@@ -12,32 +12,24 @@ use Validator;
 class LoginController extends BaseController
 {
     /**
-     * Login
-     * @OA\Post (
-     *     path="/auth/login",
-     *     tags={"Authentication"},
-     *     summary="Login with your cridentail",
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 example={
-     *                     "email": "arif@gmail.com",
-     *                     "password": "123123",
-     *                }
-     *             )
-     *         )
-     *      ),
-     *     @OA\Response(
-     *          response=200,
-     *          description="User login successfully.",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              example={{"success":true,"status_code":200,"message":"User login successfully.","data":{"name":"Rabiul Hasan","token":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZWQ2NjdiOGNjNDgyOWQ5NjY0MmU2MDI3ZmZlNDU2Zjg0M2JjY2VkY2JmNjZlYzY5NDVlMTlmYjQxZjY2ZjI0YmRmMjZiMzE1NDU0ZjMxNTAiLCJpYXQiOjE2NjM5MDgxNjguMjUzNDMyLCJuYmYiOjE2NjM5MDgxNjguMjUzNDQxLCJleHAiOjE2OTU0NDQxNjguMTI2NjcyLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.SPDaF-nFeT3KNOojx8mfttafvGwOJJrBfWnikfr4RENaRSQo6EWUnIFqjbnwbTMEa9yRs-1Mkem2Fdji1_M3OtkjFM-YQNaMU-rqybJqwDyuc79Rt9aDlRp0Aw3nKHnKAgxuS_9BADC9P73RLaef9dsS0G9KBUODUdvvU4TkBqC-nAbINM850fTmk_xMPhmZ1N0fBmEKqc2B4HaLXHMQswFicOeuHOiOdRjjrZM6h8v6T5IJjGozP1ECQM6MhRlcqBBSl2G6fSZjUKEjQR1jqo3wr_rmcyt8v-wlEM44U9_nWT86RrCL-ySP-zMBYKN2J0aAc_zEg0JEc5AoyPKNDTcN2n1AbwvHjU28DN5yc_GOOp5miRbdhRZSktJ-LipOpUZt5CZZoXH8K5KQjmxF3FB4cDb6eHXsQZnSp1dUUfdWMueQyIuKyeAFeSqunPMtMZJc7DmAwI1ODOSl2SgBTBk8nGMARJa-CMaBItSybHlC_AtWJnNXdIyq4IKd0q6eiK9sDFP7xuCTkSRdOYescT7_BX3Q44uJWGk0gFmJp5Rcy_aHcn5AO4vCjsPAY3S1UVakVEqQ2FaO4I4YnKLNKFLl1B1TnOfmVhMVwj8UDNhJkXv1JyuNQnawNbvCW7pt3vBvbasYqBh_-VRTvMAczyuajny2oQmgg8Ymlq1Kkr4"}}}
-     *          )
-     *     ),
+     * @group Authentication
      * 
-     * )
+     * Login
+     *
+     * @bodyParam  email string required. Email for login Example: mdrabiulhasan.me@gmail.com
+     * @bodyParam  password string required. Passwrod for login Example: 123456
+     * @responseField success The success of this API response is (`true` or `false`).
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 200,
+     *       "message": "User login successfully.",
+     *       "data": {
+     *           "name": "Rabiul Hasan",
+     *           "token_type": "Bearer",
+     *           "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZDkxMWQ2ZWU3ODliZGE5NzZlNmYyYjdhOGVjNGJkYzBhMjUxMzRjNTExMTQ3OGM0NzQwZWVlY2ZiMDNjMDExNThhMDQ0MjYzZWYwNDcxNmMiLCJpYXQiOjE2NjM5OTcwMjYuMDY1MzczLCJuYmYiOjE2NjM5OTcwMjYuMDY1Mzc5LCJleHAiOjE2OTU1MzMwMjUuODk3MzQ5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.mdGij29naRU4_0munG-pkV2qqGdilPcqjz9lnTdl_L5FW5b-eaX8gwm9EDWxUlAM8wLq1BnvYM3ahOyO61he_ZA_S8aeeGeRMg4ymc8ZYGxjj1XT_d7YhEIx1sOBj9g7dVlXrk76b5DCejATxk8MPahQduxg51oRwTDum-9MMuAoazf6g6kEAc7IemELQPPI7MsoySCYYjQef2ZDV3UKsmTKXYsw81YPse6TWEvrEaRUOE5DzjwLEPj806vYcgIbq5ExMGRYH49uV09N6kTlxMW8zuAqL23VJTyl1SI_9JhlFQdy__ufC7zAZh5S-PKvByrlIltfCgdsE17a90YZBzmp0uj9GgQTH5inNx9ekpRpMcVb6ZvXjlPccj8TGCTsNy7MajPP9DedFG-hECFE0SLudqvdd-icTY48MOwCG-RAQsHiqGZkSgyhxiyCZIshVCtxJuFg6zJyi9-_19Xm5gbyj5DFaI3z3Z2ZvGItFCeklsE99oLTlu6cuK5EZDM5-WloflVSnK0D6GoikzVlFkDDeDX4UAdzpD2LkX52rQZwpbEPc8LPde6w418TkGiGTH8fhS_tdH8e2iR2wpXppZiPH_aZSYEnWVBbLTUHq8AlibnmzzYxeOdrNvgTCFk-SIIbfQcTt40WQG1AE-X6Gr2fW-vfqD3Gw6Z_XYJfhek"
+     *       }
+     *   } 
      */
     public function login(LoginRequest $request)
     {

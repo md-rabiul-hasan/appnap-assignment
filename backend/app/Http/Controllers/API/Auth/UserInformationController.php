@@ -11,22 +11,21 @@ class UserInformationController extends BaseController
 {
 
     /**
-     * user Profile
-     * @OA\Get (
-     *     path="/auth/user-info",
-     *     tags={"Authentication"},
-     *     summary="Authenticated User Profile",
-     *     description="This api fetch authentication user profile",
-     *     security={{"jwt_token":{}}},
-     *     @OA\Response(
-     *          response=200,
-     *          description="Success",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              example={"success":true,"status_code":200,"message":"User Fetch successfully.","data":{"name":"Rabiul Hasan","email":"rabiul.fci@gmail.com"}}
-     *          )
-     *     ), 
-     * )
+     * @group Authentication
+     * 
+     * User Information
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 200,
+     *       "message": "User Fetch successfully.",
+     *       "data": {
+     *           "name": "Rabiul Hasan",
+     *           "email": "rabiul.fci@gmail.com"
+     *       }
+     *   }
      */
     public function userInfo(){      		
         $success = [

@@ -14,38 +14,24 @@ use Illuminate\Support\Facades\Hash;
 class PasswordResetController extends BaseController
 {
     /**
-     * Password Reset
-     * @OA\Post (
-     *     path="/auth/reset-password/{token}",
-     *     tags={"Authentication"},
-     *     summary="Login with your cridentail",
-     *     @OA\Parameter(
-     *         in="path",
-     *         name="token",
-     *         required=true,
-     *         @OA\Schema(type="string")
-     *     ),
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 example={
-     *                     "password" : "112233",
-     *                     "confirm_password" : "112233"
-     *                }
-     *             )
-     *         )
-     *      ),
-     *     @OA\Response(
-     *          response=200,
-     *          description="User Password Reset successfully. Please login",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              example={{"success":true,"status_code":200,"message":"User Password Reset successfully. Please login","data":{"name":"Rabiul Hasan","token":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmUwODdlNWRiOGE5ZjgyZWMyOTY3YTI4YTNlY2U3Y2I4M2MxMDFlZGIxZTZiNzQzMTdjNGRlZGRjNmVmMmQ1ZDM1YjMzNjY1OGE4N2M1ZTciLCJpYXQiOjE2NjM5MDg3NzMuNTMxMDAzLCJuYmYiOjE2NjM5MDg3NzMuNTMxMDEyLCJleHAiOjE2OTU0NDQ3NzMuNDE4MjQxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.wHnLAII73ytZ4C_8BzJp6GQlHWr83gKFboRFD-Bwukw233d9lorrmOrj3gG9UbKatvoYuznln4TwYzNZVCcP_QNXcjiu7UvPYHEJ9V-rRz2v6uh4gFhArutbHlQfcgQT9ONK8z_YbS29ghmgEdNSRaJjdVUqRlkI_SiYuDPiF5DH0QnNcAvWSx-YFIE7yhWyxdvjvfYonPnp3k6dYb1C8lm-m0ioHdUMloVpYxIByOX_cqfeOOlu8tEbdDUV_UfmNbkmCHPbLea9MlNup0ekZK6ch5lED-u7M-0c5h-KkBxaIXcrI0LxeyfIBUMMTP-2SZdotSEaotVgtDwSezBdXNewmAz219l6pOKM5uSkd4xrKae9QdFgNneqL-fd_D3gLnAavJemarzBnH7Oezg9aeGqVSn7m_P-nurkfUvnq7Q4eW-Fy223VLuMs2W9A79_k5tvJKQ9Lq9xo0DROAJDBPDtm83Le_b7U5uD9FebfW8n_BYScQfBcwqohrlSbE2xKj1KBfE59tnHJaaQK9qUCNleWYr6_7angI2L2q64yDoR6wlbeIpPI-6uChatinrypc7Yugh9sE3B-1qigUqIMxib3C2RGOZ6J9-5IEuITnFXJcYi6sY6M6kh29GhH_9pcxB-6sSeAukLq5UY8Q26OJwlNq3GPePxkvpL3bBI-Ac"}}}
-     *          )
-     *     ),
+     * @group Authentication
      * 
-     * )
+     * Password-Reset
+     *
+     * @urlParam token required The token for the password-reset. Example: VuEQfdGr4uTDOFNWGUEb
+     * @bodyParam  password string required. Example: 123456
+     * @bodyParam  confirm_password string required. Example: 123456
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 200,
+     *       "message": "User Password Reset successfully. Please login",
+     *       "data": {
+     *           "name": "Rabiul Hasan",
+     *           "token_type": "Bearer",
+     *           "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYjY1NjU1NjFkZmY3ZWM4MzMyMWE5YTQzMjgyNDExMzYxMWMyYjRjZDk4YWExODMzMmQ5NDQ0MzliZWMzMGMzOGE2ODJhZjg1NjQ0Y2ZhOGEiLCJpYXQiOjE2NjM5OTc1MjkuMjk0NTQyLCJuYmYiOjE2NjM5OTc1MjkuMjk0NTQ3LCJleHAiOjE2OTU1MzM1MjkuMjU2NjIsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.E96NWszsK4GEVgUuDKM7hpNgr8Z6aY7mZur68PJuPPAh5qsFYBVoIx0RO0K-tcfs6fegm3cwTM9HZK9ezhHFbuexcdQt_OlMDDqtNVPYQERhuqzTsdUUUeQFnRdeLRo-0vw76LaJJT6JYdaZIJqEE0mXCmiwZyd3J3ocjm9yVAFAQHlvpljBWmdPr23ktNS3K_Srwpvhc9Cb158ZLZlMjoHO2ObAE3QBwOvG8Iybj_SZSFxuwcwtGQfJKSmwsBzWmgAYcK3IwBBGJ_lOuDsl-nZnha7oQyyKRVGAqJ7RfSalKfdE8P64Q7-Z8QVLxBOhBGpWjj-48Qx7bLkdmuZUqRW5H2w6sUs4Lj2A_Md3iJqh3Q3F7RpNEH3DuCGK9cBlopovr8Mwq-FDohR9ehEKTORz9ImssJvCe1J4SgEetE11LXloi3_x1sy_BwfLQsJLw7_ofV0eSCPt0oEfe-ORNrqs_aoKY_TfinkcEKTG5IDg6eHvWkeigZvFlv-ex_pAmn0UbG2INuwA-0ZCLSlIydosOu6AkUlqSgUnt0kgN9wNY8pWOGbLchvPBUMVREFYb_BGtPTkmk7y8cnFGEnt45kMFP3EjMEk2j0CrqVZj9xqnaJO401UEHN2cjVQVrZEIB2iBWt-DKAoonl4qFsC-2vs0Nc173bpH9TPxOAA_Fc"
+     *       }
+     *   } 
      */
     public function passwordReset($token, ResetPasswordPasswordRequest $request){       
 

@@ -13,34 +13,26 @@ class RegistrationController extends BaseController
 {
 	
     /**
-     * Registration
-     * @OA\Post (
-     *     path="/auth/registration",
-     *     tags={"Authentication"},
-     *     summary="Registration with your information",
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 example={
-     *                     "name" : "Ariful Islam",
-     *                     "email": "arif@gmail.com",
-     *                     "password": "123123",
-     *                     "confirm_password" : "123123"
-     *                }
-     *             )
-     *         )
-     *      ),
-     *     @OA\Response(
-     *          response=200,
-     *          description="User register successfully.",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              example={{"success":true,"status_code":200,"message":"User register successfully.","data":{"name":"Ariful Islam","token":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZDIyYWUwYWE3ZTZhZjQwYmViMzZhM2RiYzAzNTcyNDEzYmI4MmFiYTAwMTk2YTgzZWU0ZjQyZDg4ZTcwZjk3YzcyMmRlZDE1NTliOTg2ZTciLCJpYXQiOjE2NjM5MDczNzguMDMwOTM5LCJuYmYiOjE2NjM5MDczNzguMDMwOTQ4LCJleHAiOjE2OTU0NDMzNzcuODExODYxLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.g6EYLaFnKf_8lnlrxSNj6zsb-WcbLZ7KOS5qjEkv1jPu2jrmbsvluzDgXk8NyupH6mkYQS0wHdqMFlvFJBolxfsmwNNgBV0OfqlydKiBpL4rD_bsYKB8FxyiX7QxM6IOWFkGMJsq7v2jRGGOkKIvklMEhpJcSwdo-iDNae1HuOedYpSyRs2H07yXsunQ2zyFovEPGgttQH4we6OfoWA1x4L6NE6v_9jFmE9PUdyTf9qn8398EeZqu_S6UCNUcMQ_5MYTE2fx3DMNNgPCHmL4bUoj9mdszeaMm3lH5Qq72xKsc5ft_GrX11rk8FmRaS4mB8AJLhefH9afu8hpIbrZw-sBVfF71aZFfrrDrK7dp0hnEdoO385cHkE5mgyMwfl_0mT65Y-yPMsx2xBQUHWX0Y_gwk2QFGSjib6YNeENInujn_rC__kdeyCsIDTYumHVsGRk4DCEkpGja_YllCUPf4TNW_asQyUo3MHoYWTWuSxR0NPBbl8Ji_BQlO8j45YPduzUT-Ek3G7EcAjj28zyX9KqSF20wNt6BnDLzbZA5wdusm2yq6IekjOQlkM6xaoIQ0dRs8bohF0hqRPPnd5sRbLBRqfQxn0MQvw4zGP3qbdtfyQPVowO8N2W8jfqqPXLqcSiq5_sjSQW6YtKnjgGfurkdSeLCDp5kd374E9aJA4"}}}
-     *          )
-     *     ),
+     * @group Authentication
      * 
-     * )
+     * Register
+     *
+     * @bodyParam  name string required. Md.Rabiul Hasan
+     * @bodyParam  email string required. Email for login Example: mdrabiulhasan.me@gmail.com
+     * @bodyParam  password string required. Example: 123456
+     * @bodyParam  confirm_password string required. Example: 123456
+     * @responseField success The success of this API response is (`true` or `false`).
+     * 
+     * @response 200{
+     *           "success": true,
+     *           "status_code": 200,
+     *           "message": "User register successfully.",
+     *           "data": {
+     *               "name": "Ariful Islam",
+     *               "token_type": "Bearer",
+     *               "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzQ4N2I2ZjI5YWM5YTIxNTI3ZjUwM2Y1ZjY3NGI2YTRkNzEwMTliZDlkNDIyMjM1ODQ1YjkzMzMzYzBjYTQ2NzIwZWEyZjQyOGFjZDk3ZjkiLCJpYXQiOjE2NjM5OTcyNDQuODM1NjA1LCJuYmYiOjE2NjM5OTcyNDQuODM1NjEsImV4cCI6MTY5NTUzMzI0NC43NzEyMDUsInN1YiI6IjYiLCJzY29wZXMiOltdfQ.WumQps2r4O8k8AF3jVaHSb09sivZJFHarVADfkFdR5V8EN9M2j_6_6mvqMiB_OAfwZ3hKF_X9H4q5WSjT3P4_-Z-NjmhFaVaAd9-P1boq9JNrCtO9pG8fybLSqeLRm2u15tLs0c-LuPHkpbhJgqN-JVMFVIIQXZe4TGBO57k5eiPvN0sB_Go5OOjxPaQbzE3hGeeeng4dshQ0ThMtaNgq4eLEM7hKXAtkToq7e1CJtQCE_fzM4A4uDLhqXYk_SrA2GpozNkvLDD8i8V91ynfFj3Jp94w6YrIB2jZ9PWDIG2-rpdLB2_Q-GFYrK09Da_aCXe1TJ3lRULJmF44FqvJWekz6xLrhL6NKHEaT0wkAe4Z7H5va8pj_yHcJWHoyr7Lt2q5Ta7cCHmm_fKtg-IHqBHuaBhHODwebxMggCfIpwv1NkK82CiKELNO70xGmExRM3VDGVSNO9Pm-kC5UWvuEU8lm5reIe-dsETTiz8gVvfjI-cO2f7G0KpW0Jiae6AdcPOiSIQpGEiqC7Q49M5cphzHB3knvsysRXbfiSS5j5hueyYOHhkTk0GQpuhAyCQUNbsIF1ek_B8MZBsME2y446ZS37pzKcYnVOTFfan2xvu6zKl32yAg3h46jk86qgd3gcGQOABGL7wtsQKWk7dw2DChd-nfLSh75gXD1e1JT7U"
+     *           }
+     *       }
      */
     public function registration(RegistrationRequest $request){
 		

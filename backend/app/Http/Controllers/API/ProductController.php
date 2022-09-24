@@ -17,9 +17,29 @@ use File;
 class ProductController extends BaseController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @group Product
+     * 
+     * Product List
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @response 200{
+     *        "success": true,
+     *        "status_code": 200,
+     *        "message": "Product fetch successfully.",
+     *        "data": [
+     *            {
+     *               "id": 16,
+     *               "name": "Nokia 1200",
+     *               "price": "34.00",
+     *               "image": "http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png",
+     *               "category": "Nokia",
+     *               "category_id": 3,
+     *               "user": "Rabiul Hasan",
+     *               "created_at": "23rd September, 2022"
+     *           }
+     *       ]
+     *   }
      */
     public function index()
     {
@@ -31,11 +51,25 @@ class ProductController extends BaseController
         } 
     }
 
+    
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @group Product
+     * 
+     * Add Product
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @bodyParam  name string required. Example: Iphone-13
+     * @bodyParam  price number required. Example: 999.00
+     * @bodyParam  category_id integer required. Example: 1
+     * @bodyParam  image file required
+     * @responseField success The success of this API response is (`true` or `false`).
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 201,
+     *       "message": "Product created successfully."
+     *   }
      */
     public function store(CreateProductRequest $request)
     {
@@ -60,10 +94,30 @@ class ProductController extends BaseController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @group Product
+     * 
+     * Show Single Product
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @urlParam id required This id require for fetching product details. Example: 1
+     * @responseField success The success of this API response is (`true` or `false`).
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 201,
+     *       "message": "Product fetch successfully.",
+     *       "data": {
+     *           "id": 16,
+     *           "name": "Nokia 1200",
+     *           "price": "34.00",
+     *           "image": "http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png",
+     *           "category": "Nokia",
+     *           "category_id": 3,
+     *           "user": "Rabiul Hasan",
+     *           "created_at": "23rd September, 2022"
+     *       }
+     *   }
      */
     public function show(Product $product)
     {
@@ -75,25 +129,29 @@ class ProductController extends BaseController
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product)
-    {
-      
-    }
+
+    public function update(Request $request, Product $product){}
 
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @group Product
+     * 
+     * Update Product
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @urlParam id required This id require for updating product details. Example: 1
+     * @bodyParam  name string required. Example: Iphone-13
+     * @bodyParam  price number required. Example: 999.00
+     * @bodyParam  category_id integer required. Example: 1
+     * @bodyParam  image file
+     * @responseField success The success of this API response is (`true` or `false`).
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 201,
+     *       "message": "Category updated successfully."
+     *   }
      */
     public function productUpdate(UpdateProductRequest $request, $id){
          
@@ -132,10 +190,20 @@ class ProductController extends BaseController
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @group Product
+     * 
+     * Delete Product
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @urlParam id required This id require for delete product details. Example: 1
+     * @responseField success The success of this API response is (`true` or `false`).
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 200,
+     *       "message": "Product deleted successfully."
+     *   }
      */
     public function destroy(Product $product)
     {

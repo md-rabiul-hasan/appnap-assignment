@@ -15,32 +15,21 @@ use Illuminate\Support\Str;
 
 class ForgetPasswordController extends BaseController
 {
-    /**
-     * Forget Password
-     * @OA\Post (
-     *     path="/auth/forget-password",
-     *     tags={"Authentication"},
-     *     summary="Reset token send email",
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 example={
-     *                     "email": "arif@gmail.com",
-     *                }
-     *             )
-     *         )
-     *      ),
-     *     @OA\Response(
-     *          response=200,
-     *          description="Password reset mail sent.",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              example={{"success":true,"status_code":200,"message":"Password reset mail sent.","data":{"reset_token":"XamaAWLSwKyInDl8gANe"}}}
-     *          )
-     *     ),
+      /**
+     * @group Authentication
      * 
-     * )
+     * Forget-Password
+     *
+     * @bodyParam  email string required. Email for login Example: mdrabiulhasan.me@gmail.com
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 200,
+     *       "message": "Password reset mail sent.",
+     *       "data": {
+     *           "reset_token": "VuEQfdGr4uTDOFNWGUEb"
+     *       }
+     *   }
      */
     public function forgetPassword(ForgetPasswordRequest $request){
     

@@ -14,9 +14,24 @@ use App\Http\Requests\Category\UpdateCategoryRequest;
 class CategoryController extends BaseController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @group Category
+     * 
+     * Category List
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 200,
+     *       "message": "Category fetch successfully.",
+     *       "data": [
+     *           {
+     *              "id": 2,
+     *               "name": "Iphone 14",
+     *               "created_at": "22nd September, 2022"
+     *           }
+     *       ]
+     *   }
      */
     public function index()
     {
@@ -29,11 +44,22 @@ class CategoryController extends BaseController
         
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @group Category
+     * 
+     * Add Category
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @bodyParam  name string required. Example: iphone
+     * @responseField success The success of this API response is (`true` or `false`).
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 201,
+     *       "message": "Category created successfully."
+     *   }
      */
     public function store(CreateCategoryRequest $request)
     {
@@ -47,11 +73,27 @@ class CategoryController extends BaseController
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    
+     /**
+     * @group Category
+     * 
+     * Show Single Category
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @urlParam id required This id require for fetching category details. Example: 1
+     * @responseField success The success of this API response is (`true` or `false`).
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 201,
+     *       "message": "Category fetch successfully.",
+     *       "data": {
+     *           "id": 1,
+     *           "name": "Iphone 14",
+     *           "created_at": "22nd September, 2022"
+     *       }
+     *   }
      */
     public function show(Category $category)
     {
@@ -63,12 +105,22 @@ class CategoryController extends BaseController
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     /**
+     * @group Category
+     * 
+     * Update Category
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @urlParam id required This id require for updating category details. Example: 1
+     * @bodyParam  name string required. Example: iphone
+     * @responseField success The success of this API response is (`true` or `false`).
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 201,
+     *       "message": "Category updated successfully."
+     *   }
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
@@ -82,11 +134,22 @@ class CategoryController extends BaseController
         }
     }
 
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @group Category
+     * 
+     * Delete Category
+     * @authenticated
+     * @header Authorization Bearer token
+     * 
+     * @urlParam id required This id require for fetching category details. Example: 1
+     * @responseField success The success of this API response is (`true` or `false`).
+     * 
+     * @response 200{
+     *       "success": true,
+     *       "status_code": 200,
+     *       "message": "Category deleted successfully."
+     *   }
      */
     public function destroy(Category $category)
     {
