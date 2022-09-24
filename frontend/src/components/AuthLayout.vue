@@ -1,17 +1,7 @@
 <template>
   <div>
     <Loader v-if="loader"/>
-    <section class="material-half-bg">
-      <div class="cover"></div>
-    </section>
-    <section class="login-content">
-        <div class="logo">
-            <h1>Appnap</h1>
-        </div> 
-
-        <router-view></router-view>
-
-    </section>
+    <router-view></router-view>
   </div>
 </template>
 

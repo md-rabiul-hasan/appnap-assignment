@@ -22,7 +22,7 @@
                   </div>
                 <div class="form-group">
                   <label class="control-label">Image</label>
-                  <input class="form-control" type="file"  @change="handleFileObject()" id="customFile" ref="file">               
+                  <input class="form-control" type="file" accept="image/*" @change="handleFileObject()" id="customFile" ref="file">               
                 </div> 
                 <div class="tile-footer">
                   <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save</button>                

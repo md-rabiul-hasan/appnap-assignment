@@ -1,4 +1,15 @@
 <template>
+
+<div>
+    <section class="material-half-bg">
+      <div class="cover"></div>
+    </section>
+    <section class="login-content">
+        <div class="logo">
+            <h1>Appnap</h1>
+        </div> 
+
+        
   <div class="login-box">
     <form class="login-form" @submit.prevent="handleSubmitRegister">
       <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN UP</h3>
@@ -34,6 +45,14 @@
       </div>
     </form>
   </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
 </template>
 
 <script>

@@ -1,5 +1,15 @@
 <template>
-  <div class="login-box"> 
+
+  <div>
+    <section class="material-half-bg">
+      <div class="cover"></div>
+    </section>
+    <section class="login-content">
+        <div class="logo">
+            <h1>Appnap</h1>
+        </div> 
+
+        <div class="login-box"> 
     <form class="login-form" @submit.prevent="handleLoginSubmit">
       <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
 
@@ -15,13 +25,6 @@
       </div>
       <div class="form-group">
         <div class="utility">
-          <div class="animated-checkbox">
-            <label>
-              <input type="checkbox" /><span class="label-text"
-                >Stay Signed in</span
-              >
-            </label>
-          </div>
           <p class="semibold-text mb-2">
             <router-link  to="forget-password">Forgot Password ?</router-link>
           </p>
@@ -40,6 +43,11 @@
       </div>
     </form>
   </div>
+
+    </section>
+
+  </div>
+  
 </template>
 
 <script>
