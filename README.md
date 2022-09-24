@@ -1,7 +1,7 @@
 
 # Appnap Assignment
 
-This assignment i compleated those topics
+I compleated product management system. This project can manage product  | category | authentication | product   details | password recover etc..
 
 
 
@@ -31,15 +31,13 @@ This assignment i compleated those topics
 | Laravel Resource collection / Request / ApiResource |
 | Scribe For API Documentation |
 | Passport API Authentication |
+| MySQL |
 | Vue JS | 
 | Vuex for state management |
 
+## Frontend Url
 
-## Frontend Project
-[appnab-assignment.com](https://sprightly-cucurucho-a3d1f7.netlify.app)
-
-
-
+[appnet-assignment.com](https://sprightly-cucurucho-a3d1f7.netlify.app/)
 
 ## API Documentaion
 
@@ -54,4 +52,11 @@ This assignment i compleated those topics
 [postman api collection](https://raw.githubusercontent.com/md-rabiul-hasan/appnap-assignment/main/backend/external-data/Appnap-Assignment.postman_collection.json)
 
 
+## Dummy User
 
+
+```bash
+  email: rabiul.fci@gmail.com
+  password: 123456
+```
+    
