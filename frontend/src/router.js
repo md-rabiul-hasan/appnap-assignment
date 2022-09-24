@@ -1,5 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+// Home 
+import ProductHome from "./components/frontend/ProductHome.vue"
+import ProductDetails from "./components/frontend/ProductDetails.vue"
+
+// Auth
 import Login from './components/auth/Login.vue'
 import Register from './components/auth/Register.vue'
 import ForgetPassword from './components/auth/ForgetPassword.vue'
@@ -21,11 +27,17 @@ Vue.use(VueRouter)
 
 
 const routes = [
+
+    // home route
+    { path: '/', component: ProductHome, name: 'home' },
+    { path: '/product/:id/details', component: ProductDetails, name: 'product-details' },
+
+    // authentication Route
     { path: '/login', component: Login, name: 'login' },
     { path: '/register', component: Register, name: 'register' },
     { path: '/forget-password', component: ForgetPassword, name:'forget-password' },
     { path: '/reset-password/:token', component: ResetPassword, name: 'reset-password' },
-    { path: '/', component: Home, name: 'home' },
+    { path: '/admin', component: Home, name: 'admin' },
 
     // category route
     { path: '/categories', component: CategoryList, name: 'categories' },

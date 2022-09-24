@@ -27,6 +27,7 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'name'        => 'required',
+            'details'        => 'required',
             'price'       => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'image'      => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -42,6 +43,7 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'name.required'        => 'Please enter product name',
+            'details.required'     => 'Please enter product details',
             'price.required'       => 'Please enter product price',
             'price.numeric'        => 'Price must be numeric format',
             'category_id.required' => 'Please select product category',

@@ -139,7 +139,7 @@ paths:
                 name:
                   type: string
                   description: 'required. Md.Rabiul Hasan'
-                  example: non
+                  example: natus
                 email:
                   type: string
                   description: 'required. Email for login'
@@ -710,6 +710,7 @@ paths:
                   data:
                     id: 16
                     name: 'Nokia 1200'
+                    details: 'Old Iphone'
                     price: '34.00'
                     image: 'http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png'
                     category: Nokia
@@ -732,6 +733,7 @@ paths:
                     example:
                       id: 16
                       name: 'Nokia 1200'
+                      details: 'Old Iphone'
                       price: '34.00'
                       image: 'http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png'
                       category: Nokia
@@ -794,10 +796,162 @@ paths:
         in: path
         name: id
         description: 'The ID of the product.'
-        example: 17
+        example: 1
         required: true
         schema:
           type: integer
+  /api/v1/guest/products:
+    get:
+      summary: 'Product List'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: true
+                  status_code: 200
+                  message: 'Product fetch successfully.'
+                  data:
+                    -
+                      id: 16
+                      name: 'Nokia 1200'
+                      details: 'Old Iphone'
+                      price: '34.00'
+                      image: 'http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png'
+                      category: Nokia
+                      category_id: 3
+                      user: 'Rabiul Hasan'
+                      created_at: '23rd September, 2022'
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status_code:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: 'Product fetch successfully.'
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 16
+                        name: 'Nokia 1200'
+                        details: 'Old Iphone'
+                        price: '34.00'
+                        image: 'http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png'
+                        category: Nokia
+                        category_id: 3
+                        user: 'Rabiul Hasan'
+                        created_at: '23rd September, 2022'
+                    items:
+                      type: object
+      tags:
+        - Guest
+      security: []
+  '/api/v1/guest/products/{product_id}/details':
+    get:
+      summary: 'Product Details'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: true
+                  status_code: 201
+                  message: 'Product fetch successfully.'
+                  data:
+                    id: 16
+                    name: 'Nokia 1200'
+                    details: 'Old Iphone'
+                    price: '34.00'
+                    image: 'http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png'
+                    category: Nokia
+                    category_id: 3
+                    user: 'Rabiul Hasan'
+                    created_at: '23rd September, 2022'
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                    description: 'The success of this API response is (`true` or `false`).'
+                  status_code:
+                    type: integer
+                    example: 201
+                  message:
+                    type: string
+                    example: 'Product fetch successfully.'
+                  data:
+                    type: object
+                    example:
+                      id: 16
+                      name: 'Nokia 1200'
+                      details: 'Old Iphone'
+                      price: '34.00'
+                      image: 'http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png'
+                      category: Nokia
+                      category_id: 3
+                      user: 'Rabiul Hasan'
+                      created_at: '23rd September, 2022'
+      tags:
+        - Guest
+      security: []
+    parameters:
+      -
+        in: path
+        name: product_id
+        description: 'The ID of the product.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: id
+        description: 'This id require for fetching product details.'
+        example: '1'
+        required: true
+        schema:
+          type: string
   /api/v1/products:
     get:
       summary: 'Product List'
@@ -839,6 +993,7 @@ paths:
                     -
                       id: 16
                       name: 'Nokia 1200'
+                      details: 'Old Iphone'
                       price: '34.00'
                       image: 'http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png'
                       category: Nokia
@@ -861,6 +1016,7 @@ paths:
                       -
                         id: 16
                         name: 'Nokia 1200'
+                        details: 'Old Iphone'
                         price: '34.00'
                         image: 'http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png'
                         category: Nokia
@@ -931,6 +1087,10 @@ paths:
                   type: string
                   description: required.
                   example: Iphone-13
+                details:
+                  type: text
+                  description: required.
+                  example: old-iphone
                 price:
                   type: number
                   description: required.
@@ -1006,6 +1166,10 @@ paths:
                   type: string
                   description: required.
                   example: Iphone-13
+                details:
+                  type: text
+                  description: required.
+                  example: old-iphone
                 price:
                   type: number
                   description: required.
@@ -1036,6 +1200,9 @@ tags:
     description: ''
   -
     name: Endpoints
+    description: ''
+  -
+    name: Guest
     description: ''
   -
     name: Product

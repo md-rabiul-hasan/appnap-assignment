@@ -31,6 +31,7 @@ class ProductController extends BaseController
      *            {
      *               "id": 16,
      *               "name": "Nokia 1200",
+     *               "details": "Old Iphone",
      *               "price": "34.00",
      *               "image": "http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png",
      *               "category": "Nokia",
@@ -44,7 +45,7 @@ class ProductController extends BaseController
     public function index()
     {
         try{
-            $products =  ProductResource::collection(Product::all());
+            $products =  ProductResource::collection(Product::where('user_id', Auth::user()->id)->get());
             return $this->sendResponse('Product fetch successfully.', $products);
         }catch(Exception $e){
             return $this->sendError($e->getMessage(), [], 500);  
@@ -60,6 +61,7 @@ class ProductController extends BaseController
      * @header Authorization Bearer token
      * 
      * @bodyParam  name string required. Example: Iphone-13
+     * @bodyParam  details text required. Example: old-iphone
      * @bodyParam  price number required. Example: 999.00
      * @bodyParam  category_id integer required. Example: 1
      * @bodyParam  image file required
@@ -82,6 +84,7 @@ class ProductController extends BaseController
                 "category_id" => $request->input('category_id'),
                 "user_id"     => Auth::user()->id,
                 "name"        => $request->input('name'),
+                "details"     => $request->input('details'),
                 "price"       => $request->input('price'),
                 "image"       => "public/storage/{$image_uploaded_path}"
             ]);
@@ -110,6 +113,7 @@ class ProductController extends BaseController
      *       "data": {
      *           "id": 16,
      *           "name": "Nokia 1200",
+     *           "details": "Old Iphone",
      *           "price": "34.00",
      *           "image": "http://localhost/Learning/appnap-assignment/backend/public/storage/product-images/JDZ3ICe9dVBoYVtItuXa4xkLHnMRGb3MrBs1QAj8.png",
      *           "category": "Nokia",
@@ -142,6 +146,7 @@ class ProductController extends BaseController
      * 
      * @urlParam id required This id require for updating product details. Example: 1
      * @bodyParam  name string required. Example: Iphone-13
+     * @bodyParam  details text required. Example: old-iphone
      * @bodyParam  price number required. Example: 999.00
      * @bodyParam  category_id integer required. Example: 1
      * @bodyParam  image file
@@ -156,6 +161,10 @@ class ProductController extends BaseController
     public function productUpdate(UpdateProductRequest $request, $id){
          
         $product = Product::find($id);
+
+        if($product->user_id != Auth::user()->id){ // check product owner ship
+            return $this->sendError("Only owner can delete her product", [], 401);  
+        }
 		
         if($request->has('image') && !empty($request->file('image')) ){
             $uploadFolder        = 'product-images';
@@ -179,6 +188,7 @@ class ProductController extends BaseController
                 "category_id" => $request->input('category_id'),
                 "user_id"     => Auth::user()->id,
                 "name"        => $request->input('name'),
+                "details"     => $request->input('details'),
                 "price"       => $request->input('price'),
                 "image"       => $image_path
             ]);

@@ -6,6 +6,7 @@ use App\Http\Controllers\API\Auth\PasswordResetController;
 use App\Http\Controllers\API\Auth\RegistrationController;
 use App\Http\Controllers\API\Auth\UserInformationController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\Guest\GuestProductController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,10 @@ Route::group(['prefix' => 'v1'], function(){
         Route::post('products/update/{id}', [ProductController::class, 'productUpdate']);
     });
 
+    Route::group(['namespace' => 'API\Guest'], function(){
+       Route::get('guest/products', [GuestProductController::class, 'index']);
+       Route::get('guest/products/{product}/details', [GuestProductController::class, 'details']);
+    });
 
     
     

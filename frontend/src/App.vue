@@ -18,12 +18,12 @@ export default {
   async created(){
     const token = localStorage.getItem("token");
     if(!token){          
-      this.$router.push("/login");
+      this.$router.push("/");
     }        
   },
    computed: {
     authenticationRoute () {
-      return ['register', 'login', 'forget-password', 'reset-password' ]
+      return ['register', 'login', 'forget-password', 'reset-password', 'home', 'product-details' ]
     }
   }
 }
