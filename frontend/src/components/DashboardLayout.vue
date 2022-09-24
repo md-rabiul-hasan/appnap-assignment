@@ -3,10 +3,11 @@
      <Loader v-if="loader"/>
      <!-- Navbar-->
      <header class="app-header">
-        <a class="app-header__logo" href="index.html">Appnap</a>
+         <router-link to="/admin"  class="app-header__logo" >Appnap</router-link>
         <!-- Sidebar toggle button--><a
-           class="app-sidebar__toggle"
+           class="app-sidebar__toggle sidebar_menu"
            href="#"
+           @click="sidebarMenuToggle"
            data-toggle="sidebar"
            aria-label="Hide Sidebar"
            ></a>
@@ -15,8 +16,9 @@
            <!-- User Menu-->
            <li class="dropdown">
               <a
-                 class="app-nav__item"
+                 class="app-nav__item sidebar"
                  href="#"
+                 
                  data-toggle="dropdown"
                  aria-label="Open Profile Menu"
                  ><i class="fa fa-user fa-lg"></i
@@ -33,16 +35,15 @@
      </header>
      <!-- Sidebar menu-->
      <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-     <aside class="app-sidebar">
+     <aside class="app-sidebar" v-if="sidebar">
         <div class="app-sidebar__user">
            <div>
               <p class="app-sidebar__user-name">{{ user.name }}</p>
-              <p class="app-sidebar__user-designation">{{ user.email }}</p>
            </div>
         </div>
         <ul class="app-menu">
            <li>
-              <router-link class="app-menu__item" to="/">
+              <router-link class="app-menu__item" to="/admin">
                  <i class="app-menu__icon fa fa-dashboard"></i>
                  <span class="app-menu__label">Dashboard</span>
               </router-link>
@@ -68,10 +69,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import Vue from 'vue';
-import axios from 'axios';
 import Loader from './common/Loader.vue';
 export default {
     name: "DashboardScreen",
+    data(){
+      return {
+         sidebar: true
+      }
+    },
     methods: {
         handleLogout() {
             localStorage.removeItem("token");
@@ -81,26 +86,18 @@ export default {
                 position: "top"
             });
             this.$store.dispatch("user", null);
-            this.$router.push("login");
+            this.$router.push("/");
+        },
+        sidebarMenuToggle(){
+         if(this.sidebar === false && window.innerWidth > 710){
+            this.sidebar = !this.sidebar
+         }  
+         
+         if( window.innerWidth < 710) {
+            this.sidebar = !this.sidebar
+         }
+               
         }
-    },
-    async created() {
-      const token = localStorage.getItem("token");
-      if(token){      
-        // this.$store.dispatch("loader", true);
-        try {
-            const response = await axios.get("/auth/user-info");           
-            this.$store.dispatch("loader", false);
-            this.$store.dispatch("user", response.data.data);
-        }
-        catch (error) {
-          this.$store.dispatch("loader", false);
-            console.log(error);
-        }
-      }else{
-        this.$router.push("/login")
-      }
-
     },
     computed: {
         ...mapGetters(["user", "loader"])

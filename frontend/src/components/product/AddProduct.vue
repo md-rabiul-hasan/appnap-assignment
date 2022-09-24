@@ -63,8 +63,9 @@ export default {
     methods: {
         // fetch all category
         async getCategories(){
-            const response = await axios.get('categories');
-            this.categories = response.data.data
+             const token           = await localStorage.getItem('token');
+             const response        = await axios.get('categories', { headers: {Authorization: 'Bearer ' + token }  });
+                   this.categories = response.data.data
         },
 
         // category  changes event
@@ -81,13 +82,8 @@ export default {
             formData.append('category_id', this.formData.category_id)
             formData.append('price', this.formData.price)
 
-
-            const response = await axios.post('/products', formData, {
-                            headers: {
-                                'Content-Type': "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
-                                }
-                            }
-                        );
+            const token = await localStorage.getItem('token'); 
+            const response = await axios.post('/products', formData, { headers: {Authorization: 'Bearer ' + token }  });
             this.$store.dispatch("loader", false); //loader off
             if(response.data.success === true){ // success request                  
                 Vue.$toast.open({

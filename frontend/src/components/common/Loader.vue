@@ -15,7 +15,7 @@ export default{
 /*CUSTOM PRELOADER*/
 .loader-bg{
     position: fixed;
-    z-index: 999999;
+    z-index: 1;
     background: #ffffffd4;
     width: 100%;
     height: 100%;

@@ -32,8 +32,8 @@
                           </div>
                        </div>
                        <div class="col-md-4">
-                          <p>Samsung Company</p>
-                          <h1 class="text-uppercase">{{name}}</h1>
+                          <p>{{category}} Company</p>
+                          <h3 class="text-uppercase">{{name}}</h3>
                           <h3 class="my-3">            
                              $ {{price}}
                           </h3>

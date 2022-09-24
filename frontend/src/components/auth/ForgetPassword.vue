@@ -62,12 +62,23 @@ export default {
             try {
                 const response = await axios.post("/auth/forget-password", data);
                 this.$store.dispatch("loader", false);
-                this.mail_sent = response.data.message;
-                Vue.$toast.open({
-                    message: response.data.message,
-                    type: "success",
-                    position: "top"
-                });
+                if(response.data.success === true){ // success request  
+                   
+                  this.mail_sent = response.data.message;
+                  Vue.$toast.open({
+                     message: response.data.message,
+                     type: "success",
+                     position: "top"
+                  });
+                 }else{ // failed request
+                   Vue.$toast.open({
+                     message: response.data.message,
+                     type: "error",
+                     position: 'top'
+                   });
+                 }
+
+                
             }
             catch (error) {
               this.$store.dispatch("loader", false);

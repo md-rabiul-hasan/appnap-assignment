@@ -10,7 +10,7 @@ import Login from './components/auth/Login.vue'
 import Register from './components/auth/Register.vue'
 import ForgetPassword from './components/auth/ForgetPassword.vue'
 import ResetPassword from './components/auth/ResetPassword.vue'
-import Home from './components/Dashboard/Home.vue'
+import Admin from './components/Dashboard/Admin.vue'
 
 // category 
 import CategoryList from './components/category/CategoryList.vue';
@@ -37,7 +37,7 @@ const routes = [
     { path: '/register', component: Register, name: 'register' },
     { path: '/forget-password', component: ForgetPassword, name:'forget-password' },
     { path: '/reset-password/:token', component: ResetPassword, name: 'reset-password' },
-    { path: '/admin', component: Home, name: 'admin' },
+    { path: '/admin', component: Admin, name: 'admin' },
 
     // category route
     { path: '/categories', component: CategoryList, name: 'categories' },

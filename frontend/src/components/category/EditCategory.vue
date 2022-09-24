@@ -36,8 +36,9 @@ export default {
     methods: {
         // fetch category details
         async getCategoryDetails(){    
-          this.$store.dispatch("loader", true);    
-          const response = await axios.get(`/categories/${this.$route.params.id}`);
+          this.$store.dispatch("loader", true);   
+          const token = await localStorage.getItem('token');  
+          const response = await axios.get(`/categories/${this.$route.params.id}`, { headers: {Authorization: 'Bearer ' + token }  });
           this.$store.dispatch("loader", false); //loader off
           if(response.data.success === true){ // success request                 
             this.name = response.data.data.name;
@@ -56,8 +57,8 @@ export default {
             const data = {
                 name: this.name,
             };
-
-            const response = await axios.patch(`/categories/${this.$route.params.id}`, data);
+            const token = await localStorage.getItem('token'); 
+            const response = await axios.patch(`/categories/${this.$route.params.id}`, data, { headers: {Authorization: 'Bearer ' + token }  });
             this.$store.dispatch("loader", false); //loader off
             if(response.data.success === true){ // success request                  
                 Vue.$toast.open({

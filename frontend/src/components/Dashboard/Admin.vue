@@ -7,7 +7,7 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-    name: "HomeScreen",
+    name: "AdminScreen",
     computed:{
         ...mapGetters(['user'])
     }

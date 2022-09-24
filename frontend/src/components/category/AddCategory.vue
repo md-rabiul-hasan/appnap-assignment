@@ -36,23 +36,23 @@ export default {
             const data = {
                 name: this.name,
             };
-
-              const response = await axios.post("/categories", data);
-              this.$store.dispatch("loader", false); //loader off
-              if(response.data.success === true){ // success request                  
-                Vue.$toast.open({
+            const token = await localStorage.getItem('token'); 
+            const response = await axios.post("/categories", data, { headers: {Authorization: 'Bearer ' + token }  });
+            this.$store.dispatch("loader", false); //loader off
+            if(response.data.success === true){ // success request                  
+               Vue.$toast.open({
                   message: response.data.message,
                   type: "success",
                   position: 'top'
-                });
-                this.$router.push("/categories");
-              }else{ // failed request
-                Vue.$toast.open({
+               });
+               this.$router.push("/categories");
+            }else{ // failed request
+               Vue.$toast.open({
                   message: response.data.message,
                   type: "error",
                   position: 'top'
-                });
-              } 
+               });
+            } 
             
         }
     }

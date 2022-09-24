@@ -56,14 +56,24 @@ export default {
       }
 
       try{
-        const response =  await axios.post(`/auth/reset-password/${token}`, data);
-        Vue.$toast.open({
-            message:  response.data.message,
-            type: "success",
-            position: 'top'
-          });
-        console.log("success" + response)
-        this.$router.push("/login")
+         const response =  await axios.post(`/auth/reset-password/${token}`, data);
+         if(response.data.success === true){ // success request  
+            Vue.$toast.open({
+               message:  response.data.message,
+               type: "success",
+               position: 'top'
+            });
+            this.$router.push("/login")
+         }else{ // failed request
+            Vue.$toast.open({
+               message: response.data.message,
+               type: "error",
+               position: 'top'
+            });
+         }
+
+
+
       }catch(error){
         console.log(error)
       }

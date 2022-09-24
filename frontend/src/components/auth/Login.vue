@@ -66,16 +66,19 @@ export default {
             try {
                 const response = await axios.post("/auth/login", data);
                 this.$store.dispatch("loader", false); //loader off
-                if(response.data.success === true){ // success request                  
+                if(response.data.success === true){ // success request  
+                   
+                  this.$store.dispatch("user", response.data.data);
+                  localStorage.setItem("token", response.data.data.token);
+
                   Vue.$toast.open({
                     message: response.data.message,
                     type: "success",
                     position: 'top'
                   });
 
-                  this.$store.dispatch("user", response.data.data);
-                  localStorage.setItem("token", response.data.data.token);
-                  this.$router.push("/");
+                  
+                  this.$router.push("/admin");
                 }else{ // failed request
                   Vue.$toast.open({
                     message: response.data.message,

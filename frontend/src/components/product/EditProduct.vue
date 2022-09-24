@@ -29,7 +29,7 @@
                     <input class="form-control" type="file" accept="image/*"  @change="handleFileObject()" id="customFile" ref="file">               
                  </div>
                  <div class="tile-footer">
-                    <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save</button>                
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update</button>                
                  </div>
               </form>
            </div>
@@ -63,17 +63,19 @@ export default {
     methods: {
         // fetch category
         async getCategories(){
-            const response = await axios.get('categories');
-            this.categories = response.data.data
+            const token           = await localStorage.getItem('token');
+            const response        = await axios.get('categories', { headers: {Authorization: 'Bearer ' + token }  });
+                  this.categories = response.data.data
         },
 
         // fetch single product info
         async getProductInfo(){
-            const response = await axios.get(`/products/${this.$route.params.id}`);
-            this.formData.name = response.data.data.name;
-            this.formData.details = response.data.data.details;
-            this.formData.price = response.data.data.price;
-            this.formData.category_id = response.data.data.category_id;
+            const token                     = await localStorage.getItem('token');
+            const response                  = await axios.get(`/products/${this.$route.params.id}`, { headers: {Authorization: 'Bearer ' + token }  });
+                  this.formData.name        = response.data.data.name;
+                  this.formData.details     = response.data.data.details;
+                  this.formData.price       = response.data.data.price;
+                  this.formData.category_id = response.data.data.category_id;
         },
 
         // category changes event
@@ -90,8 +92,8 @@ export default {
             formData.append('category_id', this.formData.category_id)
             formData.append('price', this.formData.price)
 
-
-            const response = await axios.post(`/products/update/${this.$route.params.id}`, formData);
+            const token    = await localStorage.getItem('token');
+            const response = await axios.post(`/products/update/${this.$route.params.id}`, formData, { headers: {Authorization: 'Bearer ' + token }  });
             this.$store.dispatch("loader", false); //loader off
             if(response.data.success === true){ // success request                  
                 Vue.$toast.open({

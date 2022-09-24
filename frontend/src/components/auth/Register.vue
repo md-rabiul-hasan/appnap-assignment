@@ -73,21 +73,21 @@ export default {
                   this.$store.dispatch("loader", false);
 
                   if(res.data.success === true){
-                    Vue.$toast.open({
-                      message: res.data.message,
-                      type: "success",
-                      position: "top"
-                  });
-                  localStorage.setItem("token", res.data.data.token);
-                  this.$store.dispatch("user", res.data.data);
-                  this.$router.push("/");
-                }else{
-                  Vue.$toast.open({
-                    message: res.data.message,
-                    type: "error",
-                    position: 'top'
-                  });
-                }
+                     Vue.$toast.open({
+                        message: res.data.message,
+                        type: "success",
+                        position: "top"
+                     });
+                     localStorage.setItem("token", res.data.data.token);
+                     this.$store.dispatch("user", res.data.data);
+                     this.$router.push("/admin");
+                  }else{
+                     Vue.$toast.open({
+                     message: res.data.message,
+                     type: "error",
+                     position: 'top'
+                     });
+                  }
 
                 
             }

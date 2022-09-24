@@ -2,7 +2,7 @@
   <main class="app-content">
      <div class="col-md-6 offset-md-3">
         <div class="tile">
-           <h3 class="tile-title">Category List</h3>
+           <h3 class="tile-title">Category</h3>
            <router-link to="/categories/create" class="add_button btn btn-primary" type="button"><i class="fa fa-plus-circle"></i>  Add New</router-link>
            <table class="table table-striped">
               <thead>
@@ -44,8 +44,9 @@ export default {
     methods:{
         // fetch all category
         async getCategories(){       
-          this.$store.dispatch("loader", true);    
-          const response = await axios.get("/categories");
+          this.$store.dispatch("loader", true);  
+          const token = await localStorage.getItem('token');  
+          const response = await axios.get("/categories",{ headers: {Authorization: 'Bearer ' + token }  });
           this.$store.dispatch("loader", false); //loader off
           if(response.data.success === true){ // success request                 
             this.categories = response.data.data
@@ -61,8 +62,9 @@ export default {
         // delete category
         async removeCategory(id){
           if(confirm("Are you sure? You want to delete it?")){
-            this.$store.dispatch("loader", true);    
-            const response = await axios.delete(`/categories/${id}`);
+            this.$store.dispatch("loader", true);   
+            const token = await localStorage.getItem('token');  
+            const response = await axios.delete(`/categories/${id}`, { headers: {Authorization: 'Bearer ' + token }  });
             this.$store.dispatch("loader", false); //loader off
             if(response.data.success === true){ // success request                  
               Vue.$toast.open({

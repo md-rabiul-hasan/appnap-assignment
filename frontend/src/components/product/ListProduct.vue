@@ -2,7 +2,7 @@
   <main class="app-content">
      <div class="col-md-12">
         <div class="tile">
-           <h3 class="tile-title">Product List</h3>
+           <h3 class="tile-title">Product</h3>
            <router-link :to="{ name: 'add_product' }" class="add_button btn btn-primary" type="button"><i class="fa fa-plus-circle"></i>  Add New</router-link>
            <table class="table table-striped">
               <thead>
@@ -54,8 +54,9 @@ export default {
     methods:{
         // fetch all products
         async getProducts(){       
-          this.$store.dispatch("loader", true);    
-          const response = await axios.get("/products");
+          this.$store.dispatch("loader", true);   
+          const token    = await localStorage.getItem('token');
+          const response = await axios.get("/products", { headers: {Authorization: 'Bearer ' + token }  });
           this.$store.dispatch("loader", false); //loader off
           if(response.data.success === true){ // success request                 
             this.products = response.data.data
@@ -72,7 +73,8 @@ export default {
         async removeProduct(id){
           if(confirm("Are you sure? You want to delete this product?")){
             this.$store.dispatch("loader", true);    
-            const response = await axios.delete(`/products/${id}`);
+            const token    = await localStorage.getItem('token');
+            const response = await axios.delete(`/products/${id}`, { headers: {Authorization: 'Bearer ' + token }  });
             this.$store.dispatch("loader", false); //loader off
             if(response.data.success === true){ // success request                  
               Vue.$toast.open({

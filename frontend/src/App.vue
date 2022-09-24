@@ -6,9 +6,9 @@
 </template>
 
 <script>
+import axios from 'axios';
 import AuthLayout from './components/AuthLayout.vue'
 import DashboardLayout from './components/DashboardLayout.vue';
-// import axios from 'axios'
 export default {
   name: 'App',
   components:{
@@ -18,8 +18,18 @@ export default {
   async created(){
     const token = localStorage.getItem("token");
     if(!token){          
-      this.$router.push("/");
-    }        
+      if(!this.authenticationRoute.includes(this.$route.name)){
+        this.$router.push("/");
+      }      
+    }else{    
+        const token    = await localStorage.getItem('token');
+        const response = await axios.get("/auth/user-info", { headers: {Authorization: 'Bearer ' + token }  }); 
+        if(response.data.success === true){ // success request   
+          this.$store.dispatch("user", response.data.data);
+        }else{ // failed request
+          this.$router.push("/");
+        }
+    }    
   },
    computed: {
     authenticationRoute () {
